@@ -6,7 +6,7 @@ from os import getcwd, listdir, path
 from shutil import move
 from time import sleep
 
-import chromedriver_autoinstaller
+import chromedriver_autoinstaller  # type: ignore
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -27,6 +27,7 @@ TODO:
 * IMPLEMENTAR MAIS OPÇÕES DE FILTRAGEM DE PROVÁVEIS DEZENAS
 * IMPLEMENTAR INTERFACE PYQT6 DE SELEÇÃO DE MÉTODO DE FILTRAGEM E DISPLAY DE RESULTADO
 * IMPLEMENTAR SELEÇÃO DE QTDE. DE DEZENAS (PADRÃO 06)
+* IMPLEMENTAR LÓGICA DE MACHINE LEARNING P/ ANÁLISE DE RESULTADOS
 """
 
 __author__ = "Victor Monteiro Ribeiro"
