@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from moves import Move
+
 
 @dataclass
 class Nature:
@@ -17,7 +19,7 @@ natures = {
 
 
 class Monster:
-    def __init__(self, name, data, nature: Nature, level=0) -> None:
+    def __init__(self, name, data, moves: list[Move], nature: Nature, level=0) -> None:
         self.name = name
         self.nature = nature  # applies multiplier to stats
         self.type = data["type"]
@@ -32,7 +34,7 @@ class Monster:
         self.sp_dff = data["sp_dff"]
         self.eva = 100
         self.acc = 100
-        self.moves = list
+        self.moves = moves
         self.moveset = data["moveset"]
         self.status = "None"
         self.t_exp = 0
@@ -55,6 +57,9 @@ class Monster:
             return False
         return True
 
+    def can_battle(self):
+        pass
+
     def check_lvl(self):
         pass
 
@@ -71,59 +76,3 @@ class Monster:
 
     def evolve(self):
         pass
-
-
-class Battle:
-    def __init__(self, condition="None") -> None:
-        self.field_condition = condition
-
-    def effect_on(self, targets: tuple[Monster, Monster]):
-        for monster in targets:
-            match self.field_condition:
-                case "sandstorm":
-                    if monster.type not in ["sand", "ground"]:
-                        monster.c_hp -= monster.max_hp * 0.05
-                case "hail":
-                    if monster.type != "ice":
-                        monster.c_hp -= monster.max_hp * 0.05
-
-
-class Moves:
-    def __init__(self, name, data) -> None:
-        self.name = name
-        self.dmg = data["dmg"]
-        self.spd = data["spd"]
-        self.type = data["type"]
-        self.status_effect = data["status_effect"]
-        self.battle_effect = data["battle_effect"]
-        self.min_lvl = data["learn_level"]
-
-    def status_change(self, target: Monster):
-        match self.status_effect:
-            case "burn":
-                target.status = "burned"
-            case "poison":
-                target.status = "poisoned"
-            case "hard poison":
-                target.status = "badly poisoned"
-            case "paralysis":
-                target.status = "paralyzed"
-            case "sleep":
-                target.status = "asleep"
-            case None:
-                pass
-
-    def field_change(self, battle: Battle):
-        match self.battle_effect:
-            case "sunny":
-                battle.field_condition = "sunny"
-            case "rainy":
-                battle.field_condition = "rainy"
-            case "dark":
-                battle.field_condition = "dark"
-            case "hail":
-                battle.field_condition = "hail"
-            case "sandstorm":
-                battle.field_condition = "sandstorm"
-            case "foggy":
-                battle.field_condition = "foggy"
